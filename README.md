@@ -34,23 +34,6 @@ Output goes to `dist/`. Preview it locally with `npm run preview`.
 3. In `vite.config.js`, set `base: '/<repo-name>/'`
 4. `npm run deploy`
 
-**Netlify**
-1. Push to GitHub, then "Import from Git" on netlify.com.
-2. Build command: `npm run build`, publish directory: `dist`.
-
-## Before you publish
-
-Open `src/components/Contact.jsx` and replace the placeholder email and
-LinkedIn URL with your real ones. GitHub is already wired to
-github.com/Daniyal197 throughout.
-
-Project links in `src/components/Projects.jsx` point to your GitHub profile
-for the three repos not yet linked — swap in the real repo URLs once they're
-pushed (Password Strength Analyzer is already linked correctly).
-
-If you'd rather not mention Muhammadi Burgers publicly, remove that entry
-from `src/components/Experience.jsx`.
-
 ## Structure
 
 ```
