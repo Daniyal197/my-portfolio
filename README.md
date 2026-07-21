@@ -1,5 +1,5 @@
 # Daniyal — Portfolio
-
+(i have built it from scrath) 
 A responsive portfolio site built with React + Vite + Tailwind CSS, styled around
 a terminal / security-log aesthetic to match a cybersecurity focus.
 
