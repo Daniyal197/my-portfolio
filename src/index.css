@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0e12;
+  --color-surface: #10161d;
+  --color-surface-2: #151d25;
+  --color-border: #1e2830;
+  --color-border-bright: #2a3942;
+  --color-primary: #35e08a;
+  --color-primary-dim: #1f8f56;
+  --color-primary-glow: #35e08a55;
+  --color-alert: #ff5f56;
+  --color-text: #dce8e0;
+  --color-text-muted: #7c8b84;
+  --color-text-dim: #4c5852;
+
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  scrollbar-color: var(--color-border-bright) var(--color-bg);
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center top;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Radial vignette so the grid fades instead of tiling harshly */
+.bg-vignette {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, transparent 0%, var(--color-bg) 75%);
+}
+
+.font-mono-tight {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+/* Blinking terminal cursor */
+.cursor-blink::after {
+  content: '\2588';
+  margin-left: 2px;
+  color: var(--color-primary);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Hero scanline sweep, single pass, restrained */
+@keyframes scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(2200%); opacity: 0; }
+}
+
+.scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  animation: scan 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.text-glow {
+  text-shadow: 0 0 24px var(--color-primary-glow);
+}
+
+.card-hover {
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+  border-color: var(--color-primary-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px var(--color-primary-dim), 0 12px 32px -12px var(--color-primary-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
