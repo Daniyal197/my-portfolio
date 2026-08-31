@@ -1,0 +1,109 @@
+/* Swap these three variables to match your site's exact palette */
+.boot-overlay {
+  --term-bg: #0a0e0a;
+  --term-fg: #d6d6d0;
+  --term-accent: #ffb000; /* amber phosphor — swap for your existing accent color */
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--term-bg);
+  color: var(--term-fg);
+  font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation: boot-flicker 6s infinite;
+}
+
+.boot-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.boot-content {
+  width: min(560px, 90vw);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.boot-line {
+  margin: 0 0 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.boot-line--accent {
+  color: var(--term-accent);
+}
+
+.boot-cursor {
+  animation: boot-blink 1s step-end infinite;
+}
+
+.boot-progress {
+  margin-top: 16px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.boot-progress-bar {
+  height: 100%;
+  background: var(--term-accent);
+  transition: width 120ms linear;
+}
+
+.boot-skip {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: var(--term-fg);
+  opacity: 0.5;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.boot-skip:hover {
+  opacity: 1;
+}
+
+@keyframes boot-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes boot-flicker {
+  0%,
+  96%,
+  100% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.94;
+  }
+  98% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-overlay {
+    animation: none;
+  }
+  .boot-cursor {
+    animation: none;
+  }
+}

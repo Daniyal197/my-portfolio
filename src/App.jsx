@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import BootSequence from './components/BootSequence'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import StatsStrip from './components/StatsStrip'
@@ -10,19 +12,24 @@ import Footer from './components/Footer'
 import Reveal from './components/Reveal'
 
 export default function App() {
+  const [bootDone, setBootDone] = useState(false)
+
   return (
-    <div className="min-h-screen bg-bg text-text">
-      <Nav />
-      <main>
-        <Hero />
-        <StatsStrip />
-        <Reveal><About /></Reveal>
-        <Skills />
-        <Projects />
-        <Reveal><Experience /></Reveal>
-        <Reveal><Contact /></Reveal>
-      </main>
-      <Footer />
-    </div>
+    <>
+      {!bootDone && <BootSequence onComplete={() => setBootDone(true)} />}
+      <div className="min-h-screen bg-bg text-text">
+        <Nav />
+        <main>
+          <Hero />
+          <StatsStrip />
+          <Reveal><About /></Reveal>
+          <Skills />
+          <Projects />
+          <Reveal><Experience /></Reveal>
+          <Reveal><Contact /></Reveal>
+        </main>
+        <Footer />
+      </div>
+    </>
   )
 }
