@@ -9,8 +9,7 @@ const SPECS = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 sm:py-32 border-t border-border">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <section id="about" className="py-24 sm:py-32 border-t border-border">      <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
           <div className="lg:col-span-3">
             <p className="font-mono text-xs text-primary tracking-widest mb-3">01 · ABOUT</p>

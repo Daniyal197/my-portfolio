@@ -1,0 +1,91 @@
+.cmdk-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+}
+
+.cmdk-panel {
+  --term-bg: #0a0e0a;
+  --term-fg: #d6d6d0;
+  --term-accent: #ffb000; /* keep in sync with BootSequence.css */
+
+  width: min(520px, 90vw);
+  background: var(--term-bg);
+  color: var(--term-fg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  overflow: hidden;
+}
+
+.cmdk-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cmdk-prompt {
+  color: var(--term-accent);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.cmdk-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--term-fg);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.cmdk-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.cmdk-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cmdk-item--active {
+  background: rgba(255, 176, 0, 0.12);
+}
+
+.cmdk-command {
+  color: var(--term-accent);
+}
+
+.cmdk-label {
+  color: rgba(214, 214, 208, 0.55);
+}
+
+.cmdk-empty {
+  padding: 10px;
+  font-size: 13px;
+  color: rgba(214, 214, 208, 0.5);
+}
+
+.cmdk-hint {
+  padding: 8px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 11px;
+  color: rgba(214, 214, 208, 0.4);
+}

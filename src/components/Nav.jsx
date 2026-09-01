@@ -69,6 +69,13 @@ export default function Nav() {
         >
           {open ? '×' : '≡'}
         </button>
+        <button
+          onClick={() => window.dispatchEvent(new Event("cmdk:open"))}
+          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-md border border-border text-text-muted text-xs font-mono hover:text-primary hover:border-primary transition-colors"
+>
+  <span>search</span>
+  <kbd className="px-1.5 py-0.5 rounded bg-bg border border-border text-[10px]">Ctrl K</kbd>
+</button>
       </nav>
 
       {open && (
