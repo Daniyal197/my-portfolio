@@ -1,5 +1,5 @@
-import CommandPalette from './components/CommandPalette'
 import { useState } from 'react'
+import CommandPalette from './components/CommandPalette'
 import BootSequence from './components/BootSequence'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -18,9 +18,7 @@ export default function App() {
   return (
     <>
       {!bootDone && <BootSequence onComplete={() => setBootDone(true)} />}
-    <CommandPalette />
-    <div className="min-h-screen bg-bg text-text"></div>
-      {!bootDone && <BootSequence onComplete={() => setBootDone(true)} />}
+      <CommandPalette />
       <div className="min-h-screen bg-bg text-text">
         <Nav />
         <main>
