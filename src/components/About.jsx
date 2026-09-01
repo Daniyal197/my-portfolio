@@ -1,3 +1,4 @@
+import GitHubStats from './GitHubStats'
 const SPECS = [
   ['os', 'BS Information Technology'],
   ['host', 'University of Gujrat'],
@@ -40,6 +41,9 @@ export default function About() {
                 <span className="w-2.5 h-2.5 rounded-full bg-text-dim" />
                 <span className="w-2.5 h-2.5 rounded-full bg-primary-dim" />
                 <span className="ml-2 font-mono text-[11px] text-text-muted">neofetch</span>
+              </div>
+              <div className="mt-6">
+                <GitHubStats />
               </div>
               <div className="p-5 font-mono text-[13px] leading-7">
                 <p className="text-primary font-bold mb-2">daniyal@portfolio</p>
