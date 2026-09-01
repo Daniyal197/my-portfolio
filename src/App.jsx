@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import CommandPalette from './components/CommandPalette'
 import BootSequence from './components/BootSequence'
+import MatrixRain from './components/MatrixRain'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import StatsStrip from './components/StatsStrip'
@@ -19,7 +20,8 @@ export default function App() {
     <>
       {!bootDone && <BootSequence onComplete={() => setBootDone(true)} />}
       <CommandPalette />
-      <div className="min-h-screen bg-bg text-text">
+      <MatrixRain />
+      <div className="min-h-screen text-text relative z-10">
         <Nav />
         <main>
           <Hero />

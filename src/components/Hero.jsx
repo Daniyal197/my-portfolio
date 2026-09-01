@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react'
+import Magnetic from './Magnetic'
+import ProfilePhoto from './ProfilePhoto'
+import StatusBadge from './StatusBadge'
 
 const LINES = [
   { cmd: 'Whoami', out: 'Daniyal Ahmed' },
@@ -58,49 +61,59 @@ export default function Hero() {
       <div className="absolute inset-0 bg-vignette pointer-events-none" aria-hidden="true" />
 
       <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="max-w-3xl">
-          <div className="font-mono text-[13px] sm:text-sm text-text-muted mb-8 min-h-[92px] sm:min-h-[76px]">
-            {rendered.map((line, i) => (
-              <div key={i} className="leading-relaxed">
-                <span className="text-primary">$</span> {line.cmd}
-                {!line.cmdDone && <span className="cursor-blink" />}
-                {line.cmdDone && line.out && (
-                  <div className="text-text pl-4">
-                    <span className="text-text-dim">→</span> {line.out}
-                  </div>
-                )}
-              </div>
-            ))}
+        <div className="flex flex-col-reverse lg:flex-row lg:items-start lg:justify-between gap-10 lg:gap-16">
+          <div className="max-w-3xl">
+            <StatusBadge />
+
+            <div className="font-mono text-[13px] sm:text-sm text-text-muted mb-8 min-h-[92px] sm:min-h-[76px]">
+              {rendered.map((line, i) => (
+                <div key={i} className="leading-relaxed">
+                  <span className="text-primary">$</span> {line.cmd}
+                  {!line.cmdDone && <span className="cursor-blink" />}
+                  {line.cmdDone && line.out && (
+                    <div className="text-text pl-4">
+                      <span className="text-text-dim">→</span> {line.out}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <h1 className="font-mono-tight font-extrabold text-[clamp(2.25rem,7vw,4.25rem)] leading-[1.05] text-text text-glow">
+              Building security tools
+              <br />
+              <span className="text-primary">from the syscall up. </span>
+            </h1>
+
+            <p className="mt-6 text-base sm:text-lg text-text-muted max-w-xl leading-relaxed">
+              I'm Daniyal — a BS IT student who'd rather write a packet parser than import one.
+              Currently interning in cybersecurity and shipping standard-library-only tools:
+              sniffers, intrusion detection, and password analysis.
+            </p>
+
+            <div className={`mt-9 flex flex-wrap gap-4 transition-opacity duration-700 ${done ? 'opacity-100' : 'opacity-0'}`}>
+              <Magnetic>
+                <a
+                  href="#projects"
+                  onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }}
+                  className="px-5 py-3 rounded font-mono text-sm font-semibold bg-primary text-bg hover:bg-primary-dim transition-colors"
+                >
+                  ./view_projects.sh
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a
+                  href="#contact"
+                  onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }}
+                  className="px-5 py-3 rounded font-mono text-sm font-semibold border border-border-bright text-text hover:border-primary hover:text-primary transition-colors"
+                >
+                  Contact
+                </a>
+              </Magnetic>
+            </div>
           </div>
 
-          <h1 className="font-mono-tight font-extrabold text-[clamp(2.25rem,7vw,4.25rem)] leading-[1.05] text-text text-glow">
-            Building security tools
-            <br />
-            <span className="text-primary">from the syscall up. </span>
-          </h1>
-
-          <p className="mt-6 text-base sm:text-lg text-text-muted max-w-xl leading-relaxed">
-            I'm Daniyal — a BS IT student who'd rather write a packet parser than import one.
-            Currently interning in cybersecurity and shipping standard-library-only tools:
-            sniffers, intrusion detection, and password analysis.
-          </p>
-
-          <div className={`mt-9 flex flex-wrap gap-4 transition-opacity duration-700 ${done ? 'opacity-100' : 'opacity-0'}`}>
-            <a
-              href="#projects"
-              onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }}
-              className="px-5 py-3 rounded font-mono text-sm font-semibold bg-primary text-bg hover:bg-primary-dim transition-colors"
-            >
-              ./view_projects.sh
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }}
-              className="px-5 py-3 rounded font-mono text-sm font-semibold border border-border-bright text-text hover:border-primary hover:text-primary transition-colors"
-            >
-              Contact 
-            </a>
-          </div>
+          <ProfilePhoto />
         </div>
       </div>
     </section>

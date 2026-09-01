@@ -1,0 +1,55 @@
+.scan-sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  box-shadow: 0 0 8px var(--color-primary-glow);
+  animation: scan-sweep-move 3.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes scan-sweep-move {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  50% {
+    top: 100%;
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.bracket-pulse {
+  animation: bracket-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes bracket-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    filter: drop-shadow(0 0 0px var(--color-primary));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px var(--color-primary));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-sweep,
+  .bracket-pulse {
+    animation: none !important;
+  }
+}

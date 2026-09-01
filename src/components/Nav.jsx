@@ -11,6 +11,7 @@ const LINKS = [
 export default function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -18,10 +19,46 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const sections = LINKS
+      .map((l) => document.querySelector(l.href))
+      .filter(Boolean)
+
+    if (sections.length === 0) return
+
+    // Thin band through the middle of the viewport — whichever section
+    // crosses it becomes "active", regardless of how tall each section is.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(`#${entry.target.id}`)
+          }
+        })
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    )
+
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [])
+
   const handleClick = (href) => {
     setOpen(false)
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
   }
+
+  const linkClass = (href) =>
+    `px-3 py-2 rounded transition-colors ${
+      active === href
+        ? 'text-primary font-semibold'
+        : 'text-text-muted hover:text-primary'
+    }`
+
+  const mobileLinkClass = (href) =>
+    `block py-3 border-b border-border last:border-none transition-colors ${
+      active === href ? 'text-primary font-semibold' : 'text-text-muted hover:text-primary'
+    }`
 
   return (
     <header
@@ -44,8 +81,9 @@ export default function Nav() {
               <a
                 href={l.href}
                 onClick={(e) => { e.preventDefault(); handleClick(l.href) }}
-                className="px-3 py-2 rounded text-text-muted hover:text-primary transition-colors"
+                className={linkClass(l.href)}
               >
+                {active === l.href && <span className="text-primary mr-1">●</span>}
                 {l.flag}
               </a>
             </li>
@@ -72,10 +110,10 @@ export default function Nav() {
         <button
           onClick={() => window.dispatchEvent(new Event("cmdk:open"))}
           className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-md border border-border text-text-muted text-xs font-mono hover:text-primary hover:border-primary transition-colors"
->
-  <span>search</span>
-  <kbd className="px-1.5 py-0.5 rounded bg-bg border border-border text-[10px]">Ctrl K</kbd>
-</button>
+        >
+          <span>search</span>
+          <kbd className="px-1.5 py-0.5 rounded bg-bg border border-border text-[10px]">Ctrl K</kbd>
+        </button>
       </nav>
 
       {open && (
@@ -86,8 +124,9 @@ export default function Nav() {
                 <a
                   href={l.href}
                   onClick={(e) => { e.preventDefault(); handleClick(l.href) }}
-                  className="block py-3 text-text-muted hover:text-primary border-b border-border last:border-none"
+                  className={mobileLinkClass(l.href)}
                 >
+                  {active === l.href && <span className="text-primary mr-1">●</span>}
                   {l.flag}
                 </a>
               </li>

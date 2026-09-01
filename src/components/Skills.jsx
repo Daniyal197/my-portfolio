@@ -1,4 +1,5 @@
 import Reveal from './Reveal'
+import TiltCard from './TiltCard'
 
 const GROUPS = [
   {
@@ -38,23 +39,25 @@ export default function Skills() {
         <div className="grid sm:grid-cols-2 gap-5">
           {GROUPS.map((group, i) => (
             <Reveal key={group.label} delay={i * 80}>
-            <div
-              className="rounded-lg border border-border bg-surface p-5 sm:p-6 card-hover"
-            >
-              <p className="font-mono text-[11px] text-text-dim tracking-widest uppercase mb-4">
-                # {group.label}
-              </p>
-              <ul className="flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <li
-                    key={item}
-                    className="font-mono text-[13px] px-3 py-1.5 rounded border border-border-bright bg-surface-2 text-text-muted"
-                  >
-                    <span className="text-primary">✓</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <TiltCard className="h-full">
+                <div
+                  className="rounded-lg border border-border bg-surface p-5 sm:p-6 card-hover h-full"
+                >
+                  <p className="font-mono text-[11px] text-text-dim tracking-widest uppercase mb-4">
+                    # {group.label}
+                  </p>
+                  <ul className="flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <li
+                        key={item}
+                        className="font-mono text-[13px] px-3 py-1.5 rounded border border-border-bright bg-surface-2 text-text-muted"
+                      >
+                        <span className="text-primary">✓</span> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </TiltCard>
             </Reveal>
           ))}
         </div>
