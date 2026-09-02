@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+
 const ENTRIES = [
   {
     range: 'Jul 1 — Aug 20, 2026',
@@ -5,6 +7,7 @@ const ENTRIES = [
     detail:
       'Focused internship in networking and digital forensics. Designed and built a from-scratch network packet sniffer using raw sockets — capturing and parsing live traffic, exporting to PCAP, and detecting SYN-flood and port-scan activity — as a core forensics deliverable.',
     tag: 'ACTIVE',
+    icon: '💼',
   },
   {
     range: '2023 — present',
@@ -12,6 +15,7 @@ const ENTRIES = [
     detail:
       'Coursework spanning AI, Information Security, Web 3.0, and Computer Organisation — with every major project rebuilt from fundamentals rather than framework defaults.',
     tag: 'ONGOING',
+    icon: '🎓',
   },
   {
     range: 'Ongoing',
@@ -19,8 +23,72 @@ const ENTRIES = [
     detail:
       'Runs day-to-day operations for a shoe store outside GBHP Colony, Attock — the non-technical half of the resume.',
     tag: 'ONGOING',
+    icon: '🏪',
   },
 ]
+
+function TimelineItem({ entry, isLast }) {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) {
+      setVisible(true)
+      return
+    }
+    const node = ref.current
+    if (!node) return
+    const observer = new IntersectionObserver(
+      ([entryObs]) => {
+        if (entryObs.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -60px 0px' }
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className={`relative pl-9 pb-12 last:pb-0 border-l transition-colors duration-700 ${
+        isLast ? 'border-transparent' : visible ? 'border-primary-dim' : 'border-border'
+      }`}
+    >
+      <span
+        className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 flex items-center justify-center text-[9px] transition-all duration-500 ${
+          visible ? 'bg-primary border-primary' : 'bg-bg border-border-bright'
+        } ${entry.tag === 'ACTIVE' && visible ? 'animate-pulse' : ''}`}
+      />
+
+      <div
+        className={`transition-all duration-700 ease-out ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}
+      >
+        <div className="flex flex-wrap items-center gap-3 mb-2">
+          <span className="text-base leading-none">{entry.icon}</span>
+          <p className="font-mono text-[12px] text-text-dim">{entry.range}</p>
+          <span
+            className={`font-mono text-[10px] tracking-widest px-2 py-0.5 rounded-full border ${
+              entry.tag === 'ACTIVE'
+                ? 'border-primary text-primary'
+                : 'border-primary-dim text-text-muted'
+            }`}
+          >
+            {entry.tag}
+          </span>
+        </div>
+        <h3 className="font-mono-tight font-semibold text-lg text-text mb-2">{entry.title}</h3>
+        <p className="text-text-muted text-sm leading-relaxed max-w-xl">{entry.detail}</p>
+      </div>
+    </div>
+  )
+}
 
 export default function Experience() {
   return (
@@ -33,17 +101,7 @@ export default function Experience() {
 
         <div className="max-w-3xl">
           {ENTRIES.map((e, i) => (
-            <div key={e.title} className="relative pl-8 pb-12 last:pb-0 border-l border-border last:border-transparent">
-              <span className="absolute -left-[7px] top-1 w-3.5 h-3.5 rounded-full bg-bg border-2 border-primary" />
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <p className="font-mono text-[12px] text-text-dim">{e.range}</p>
-                <span className="font-mono text-[10px] tracking-widest px-2 py-0.5 rounded-full border border-primary-dim text-primary">
-                  {e.tag}
-                </span>
-              </div>
-              <h3 className="font-mono-tight font-semibold text-lg text-text mb-2">{e.title}</h3>
-              <p className="text-text-muted text-sm leading-relaxed max-w-xl">{e.detail}</p>
-            </div>
+            <TimelineItem key={e.title} entry={e} isLast={i === ENTRIES.length - 1} />
           ))}
         </div>
       </div>
