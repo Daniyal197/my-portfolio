@@ -20,3 +20,7 @@
 .tilt-card:hover::after {
   opacity: 1;
 }
+@media (prefers-reduced-motion: reduce) 
+{ .tilt-card
+ { transform: none !important; transition: none; 
+}
