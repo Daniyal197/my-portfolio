@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import "../TiltCard.css";
+import "./TiltCard.css";
 
 export default function TiltCard({ children, className = "", max = 8, glare = true }) {
   const ref = useRef(null);
